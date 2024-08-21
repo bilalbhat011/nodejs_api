@@ -1,46 +1,4 @@
-// import jwt from "jsonwebtoken";
-// import User from "../models/user.model.js";
 
-// export const signup = async (req, res) => {
-//   try {
-//     const InUsername = await User.findOne({ username: req.body.username });
-//     const InPassword = await User.findOne({password:req.body.password});
-   
-//     if (InUsername) {
-//      res.send({
-//         status:false,
-//         msg:"Username alreday exist .",
-//         data:{}
-//      })
-//     }else if (InPassword) {
-//         res.send({
-//             status:false,
-//             msg:"password alreday exist ",
-//             data:{}
-//         })
-        
-//     }else{
- 
-//         var user = await User.create(res.body)
-//         if (user) {
-//             user.token= await jwt.sign({time:Date(),userId:user._id},"coaching")
-//             res.send({
-//                 status: true,
-//                 msg: "Signup Successfully.",
-//                 data: user
-//             })
-
-            
-//         }
-//     }
-    
-    
-    
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// };
 
 
 
@@ -149,6 +107,22 @@ export const login = async (req, res) => {
 };
 
 
+export const getAllUsers = async (req, res) => {
+  try {
+    // Fetch all users from the database
+    const users = await User.find({});
+
+    // Respond with success message and list of users
+    return res.status(200).json({
+      status: true,
+      msg: "Users retrieved successfully.",
+      data: users,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 
 
